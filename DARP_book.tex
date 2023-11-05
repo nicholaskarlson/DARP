@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage[backend=biber, style=authoryear, natbib=true]{biblatex}
+\addbibresource{references.bib}
 
 \begin{document}
 
@@ -19,7 +21,7 @@
 \tableofcontents
 
 \chapter*{Preface}
-In the era of information, data is the cornerstone of transformative change. With every click, like, share, and purchase, vast volumes of data are generated. When used right, this data offers insights that have the potential to drive innovation, streamline processes, and reshape the way we live, work, and think. This book, "Data Analysis with R and Python - Including Sentiment Analysis," aims to provide you with the tools and knowledge to harness the power of data effectively and responsibly.
+In the era of information, data is the cornerstone of transformative change. With every click, like, share, and purchase, vast volumes of data are generated. When used right, this data offers insights that have the potential to drive innovation, streamline processes, and reshape the way we live, work, and think. This book, "Data Analysis with R and Python - Including Sentiment Analysis," aims to provide you with the tools and knowledge to harness the power of data effectively and responsibly. Note that this book has very few references. The reader is encouraged to use resources available on the Web to fact-check. This book's view on ``causation'' and facts is heavily influenced by Mosteller and Tukey \parencite{mosteller1977}.
 
 The world of data analysis is vast, intricate, and continually evolving. This book doesn't aim to cover everything—no single book could. Instead, our purpose is to offer a robust foundation in data analysis using two of the most powerful and versatile languages in the field: R and Python. Both languages offer their own strengths and capabilities, and combined, they form a formidable toolkit for any budding data analyst or scientist.
 
@@ -187,6 +189,7 @@ Every journey, no matter how enlightening, must find its conclusion. As we wrap 
 
 The difference between experimental data and observational data is imporant. There are semester-long courses in statistics regarding the collection and analysis of data from controlled experiments. That said, most of the data that data analysts analyze in the era of "big data" is observational data. Forecasting with the use of observational data can be quite accurate however, so using observational data to make decisions can be very effective. However, the issue of causality is more easily addressed with experimental data. Two giants in the field of statisics discuss causality in their book, "Data Analysis and Regression: A Second Course in Statistics." If you are interested in causality this book is worth a look. The book's reference is: Mosteller, F., and Tukey, J. W. (1977). Data Analysis and Regression: A Second Course in Statistics. Reading, MA: Addison-Wesley Pub Co.
 
+\printbibliography
 \end{document}
 
 
