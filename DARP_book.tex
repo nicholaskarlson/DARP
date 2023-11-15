@@ -1,13 +1,75 @@
-\documentclass{book}
+\documentclass[a4paper,12pt]{book}
+% \documentclass{book}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+% \usepackage{hyperref}
 \usepackage{geometry}
+%\usepackage{biblatex}
+
 \usepackage[backend=biber, style=authoryear, natbib=true]{biblatex}
 \addbibresource{references.bib}
+\usepackage{graphicx} % For graphics
+\usepackage{float}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage{tkz-euclide} % Add this line to include the tkz-euclide package
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{angles,quotes} % For drawing and labeling angles
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+% Define custom styles for holdot and soldot
+\tikzset{
+    holdot/.style={color=black,only marks,mark=*},
+    soldot/.style={color=black,fill=white,only marks,mark=*},
+}
+
+\usepgfplotslibrary{fillbetween} 
+
+% Configure hyperref package to color links blue
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+
+\newcommand{\inputtoc}[1]{\input{#1}}
+
+% \makeindex % Command to make the index
+
+\pgfmathdeclarefunction{csc}{1}{%
+  \pgfmathparse{1/sin(#1)}%
+}
+
+\newenvironment{exercise}[1][]
+  {\par\medskip\noindent\textbf{Exercise #1} \rmfamily}
+  {\medskip}
+
+% Define the problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][\theproblem]
+{\refstepcounter{problem}\par\medskip\noindent\textbf{Problem~#1:} \rmfamily}{\medskip}
+
+% Define the solution environment
+\newenvironment{solution}[1][]
+{\par\noindent\textit{Solution:} \rmfamily}{\medskip}
+
+% Define the example environment
+\newcounter{example}
+\newenvironment{example}[1][\theexample]
+  {\refstepcounter{example}\par\medskip\noindent\textbf{Example~#1:} \rmfamily}
+  {\medskip}
+  
+% Define theorem, application, definition, method, and discussion environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{application}{Application}
+\newtheorem{definition}{Definition}
+\newtheorem{method}{Method}
+\newtheorem{discussion}{Discussion}
 
 \begin{document}
 
-\title{Data Analysis with R and Python (DARP) \\ \large Including Sentiment Analysis}
+\title{Data Analysis with R and Python (DARP) v0.1 \\ \large Including Colab Examples on GitHub and Sentiment Analysis}
 \author{}
 \date{}
 \maketitle
@@ -293,8 +355,248 @@ Every journey, no matter how enlightening, must find its conclusion. As we wrap 
 
 The difference between experimental data and observational data is imporant. There are semester-long courses in statistics regarding the collection and analysis of data from controlled experiments. That said, most of the data that data analysts analyze in the era of "big data" is observational data. Forecasting with the use of observational data can be quite accurate however, so using observational data to make decisions can be very effective. However, the issue of causality is more easily addressed with experimental data. Two giants in the field of statisics discuss causality in their book, "Data Analysis and Regression: A Second Course in Statistics." If you are interested in causality this book is worth a look. The book's reference is: Mosteller, F., and Tukey, J. W. (1977). Data Analysis and Regression: A Second Course in Statistics. Reading, MA: Addison-Wesley Pub Co.
 
+% --- Appendices ---
+\clearpage
+\addcontentsline{toc}{chapter}{Appendices}
+\appendix
+\renewcommand{\thechapter}{\Roman{chapter}} % Ensuring chapters are numbered as I, II, III, etc.
+
+%\appendix
+\chapter{Basic GitHub Guide}
+\section*{A Quick Start to Your GitHub Journey}
+
+Welcome to the fascinating world of GitHub, a platform that has revolutionized the way we collaborate on projects, share code, and build software together. Whether you are a programmer, a writer, or a mathematician, GitHub provides a set of powerful tools to help you collaborate with others, manage your projects, and contribute to the vast world of open-source software. In this guide, we will walk you through the foundational steps to get started with GitHub, helping you to navigate, contribute, and make the most out of this incredible platform.
+
+\subsection*{Creating Your GitHub Account}
+
+The first step to joining the GitHub community is to create an account. Here’s how you can do it:
+
+\begin{enumerate}
+    \item Visit the \href{https://github.com/}{GitHub website}.
+    \item Click on the “Sign up” button.
+    \item Fill in the required information, including your username, email address, and password.
+    \item Verify your account and complete the sign-up process.
+\end{enumerate}
+
+Once you have created your account, take a moment to explore your new GitHub dashboard. Here, you will find a variety of tools and features that will help you manage your projects, collaborate with others, and discover new and interesting repositories.
+
+\subsection*{Creating Your First Repository}
+
+A repository (or “repo”) is a digital directory where you can store your project files. Here’s how you can create your first repository:
+
+\begin{enumerate}
+    \item From your GitHub dashboard, click on the “New” button to create a new repository.
+    \item Give your repository a name and provide a brief description.
+    \item Initialize this repository with a README file. (This is an optional step, but it’s a good practice to include a README file in every repository to explain what your project is about.)
+    \item Click “Create repository.”
+\end{enumerate}
+
+Congratulations! You have just created your first GitHub repository. You can now start adding files, collaborating with others, and managing your project right from GitHub.
+
+\subsection*{Making Changes and Commits}
+
+GitHub uses Git, a version control system, to keep track of changes made to your project. Here’s a quick guide on how to make changes and commits:
+
+\begin{enumerate}
+    \item Navigate to your repository on GitHub.
+    \item Find the file you want to edit, and click on it.
+    \item Click the pencil icon to start editing.
+    \item Make your changes and then scroll down to the “Commit changes” section.
+    \item Provide a commit message that explains the changes you made.
+    \item Choose whether you want to commit directly to the main branch or create a new branch for your changes.
+    \item Click “Commit changes.”
+\end{enumerate}
+
+Your changes are now saved, and a new commit is created. Every commit has a unique ID, making it easy to track changes, revert to previous versions, and collaborate with others.
+
+\subsection*{Collaborating with Others}
+
+One of the biggest strengths of GitHub is its collaborative nature. Here are some ways you can collaborate with others:
+
+\begin{itemize}
+    \item \textbf{Forking:} You can fork a repository, create your own copy, make changes, and then propose those changes back to the original project.
+    \item \textbf{Issues:} Use issues to report bugs, request new features, or start a discussion with the community.
+    \item \textbf{Pull Requests:} Propose changes to a project by creating a pull request. This allows others to review your changes, discuss them, and eventually merge them into the project.
+\end{itemize}
+
+\subsection*{Conclusion: Embarking on Your GitHub Adventure}
+
+Now that you have a basic understanding of GitHub and how it works, you are ready to embark on your GitHub adventure. Explore repositories, contribute to open-source projects, collaborate with others, and build amazing things together. Remember, the GitHub community is vast and supportive, and there is a wealth of knowledge and resources available to help you along the way. Happy coding!
+
+\chapter{Basic Python and Colab Guide}
+\section*{Introduction to Python for Calculus}
+
+Python's versatility in mathematics, science, engineering, and data analysis stems from its simplicity and extensive library ecosystem. This guide will delve into Python packages essential for math, pre-calculus, and calculus, showcasing their utility in Google Colab notebooks.
+
+\subsection*{Setting Up Python and Google Colab}
+
+Google Colab is a free, cloud-based platform enabling Python programming in a browser. It offers free computational resources, ideal for Python learning and experimentation.
+
+Visit \href{https://colab.research.google.com/}{Google Colab} to start. Create a new notebook, and use code cells to write and execute Python code with Shift+Enter.
+
+\subsection*{Important Python Packages for Math}
+
+\subsubsection*{NumPy}
+NumPy, fundamental for scientific computing, offers support for large, multi-dimensional arrays and matrices, along with various mathematical functions.
+
+\subsubsection*{SymPy}
+SymPy, a library for symbolic mathematics, allows algebraic manipulations and equation solving symbolically, perfect for calculus operations like differentiation and integration.
+
+\subsubsection*{Matplotlib}
+Matplotlib, a Python plotting library, creates static, interactive, and animated visualizations, useful for graphing functions and data in calculus.
+
+\subsubsection*{Pandas}
+Pandas provide high-performance, easy-to-use data structures, and data analysis tools, invaluable for handling and analyzing mathematical data.
+
+\subsubsection*{SciPy}
+SciPy extends NumPy by adding a collection of algorithms and high-level commands for data manipulation and visualization.
+
+\subsection*{Examples and Applications}
+
+\subsubsection*{Calculating Derivatives and Integrals with SymPy}
+Illustrate using SymPy to compute derivatives and integrals of functions.
+
+\subsubsection*{Data Visualization with Matplotlib and Pandas}
+Demonstrate graphing functions and datasets, highlighting calculus concepts.
+
+\subsubsection*{Solving Equations with SciPy}
+Show how to solve equations that commonly appear in calculus.
+
+\subsubsection*{Numerical Methods in Python}
+Discuss Python's capabilities in numerical differentiation and integration, useful in calculus.
+
+\subsubsection*{Using Python for Limits and Continuity}
+Examples showcasing how Python can help in understanding limits and continuity in functions.
+
+\subsection*{Interactive Learning with Google Colab}
+Highlight the benefits of using Colab notebooks for interactive calculus learning, including real-time collaboration and easy sharing.
+
+\subsection*{Creating a Colab Notebook for Practice Problems}
+
+In this section, we will guide you through creating a Google Colab notebook that uses Python.
+
+\subsubsection*{Setting Up Your Colab Notebook}
+To start working with Python on Colab:
+
+\begin{enumerate}
+    \item Open \href{https://colab.research.google.com/}{Google Colab}.
+    \item Choose 'New Notebook' to create a blank notebook.
+    \item Rename the notebook to something descriptive, like 'Calculus Practice'.
+\end{enumerate}
+
+\subsubsection*{Installing Necessary Libraries}
+At the beginning of your notebook, install any necessary Python libraries. For these exercises, ensure NumPy, SymPy, and Matplotlib are available:
+
+\begin{verbatim}
+Remove # if the following packages are not installed:
+# !pip install numpy sympy matplotlib
+\end{verbatim}
+
+\subsubsection*{Solving Exercise 1: Graphing a Linear Function}
+Let's solve the first exercise, which involves graphing a linear function.
+
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the function
+def f(x):
+    return 3*x - 2
+
+# Generate x values
+x = np.linspace(-10, 10, 400)
+
+# Plot the function
+plt.plot(x, f(x))
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('Graph of f(x) = 3x - 2')
+plt.grid(True)
+plt.show()
+
+# Slope and y-intercept
+print("Slope: 3")
+print("Y-intercept: -2")
+\end{verbatim}
+
+\subsubsection*{Solving Exercise 2: Identifying Undefined Points in a Function}
+Now, let's address the second exercise, which requires identifying for what values the function \( g(x) = \frac{1}{x} \) is undefined.
+
+\begin{verbatim}
+import sympy as sp
+
+x = sp.symbols('x')
+g = 1/x
+
+# Display the function
+sp.plot(g, (x, -10, 10), title='Graph of g(x) = 1/x',
+        xlabel='x', ylabel='g(x)', ylim=(-10, 10))
+
+# Identifying undefined points
+print("g(x) is undefined for x = 0")
+\end{verbatim}
+
+\subsection*{Accessing the Completed Colab Notebook}
+
+The Colab notebook we've discussed is available for viewing and interaction. You can access it by clicking on the following link: \href{https://colab.research.google.com/drive/1HF-cmwqfIZ803i1i-CFyR7ssWsDt7WvV}{Finished Colab Notebook on Graphing and Analysis}. This link will take you directly to the notebook hosted on Google Colab, where you can view the complete code and run it yourself.
+
+\url{https://colab.research.google.com/drive/1HF-cmwqfIZ803i1i-CFyR7ssWsDt7WvV}
+
+\subsection*{Adding the Notebook to Your GitHub Repository}
+
+If you have downloaded the Colab notebook to your local machine and want to add it to your Git repository, follow these terminal commands on your Ubuntu machine:
+
+\begin{verbatim}
+# Navigate to your local Git repository directory
+cd path/to/your/repo
+
+# Add the Colab notebook file to the repository
+git add name_of_the_notebook.ipynb
+
+# Commit the addition with a descriptive message
+git commit -m "Add Colab notebook for calculus exercises"
+
+# Push the changes to the remote GitHub repository
+git push origin main
+\end{verbatim}
+
+%Replace `path/to/your/repo` with the actual path to your local Git repository and `name_of_the_notebook.ipynb` with the filename of your Colab notebook.
+
+\subsubsection*{Using Colab Notebooks for Problem Solving}
+These examples demonstrate how you can use Google Colab and Python to solve and visualize calculus problems. You can use similar steps to tackle other exercises, explore different functions, and deepen your understanding of calculus concepts.
+
+\subsection*{Conclusion: Interactive Learning with Colab Notebooks}
+
+Google Colab notebooks offer an interactive and accessible way to explore calculus using Python. By integrating theoretical concepts with computational examples, students can gain a deeper understanding of calculus. We encourage you to use these notebooks to solve exercises, visualize mathematical concepts, and explore the vast possibilities that Python and Colab offer.
+
+
+\subsection*{Conclusion: Python and Colab}
+
+Python, with its comprehensive libraries, offers a powerful toolset for math exploration. Combined with Google Colab, it provides an accessible, interactive platform for learning and experimentation. Embrace Python and Colab to enhance your understanding of math and to explore mathematical problems creatively and efficiently.
+
+
+
+% --- Bibliography ---
+%\addcontentsline{toc}{chapter}{Bibliography}
+%\bibliographystyle{alpha}
+%\bibliography{references} % Assuming you have a references.bib file
+
+% --- Index ---
+% \addcontentsline{toc}{chapter}{Index}
+% \printindex
+
+
+\cleardoublepage % Ensure the correct page number in the TOC
+\phantomsection % Create a phantom section for the hyperlink
+\addcontentsline{toc}{chapter}{\bibname} % Add bibliography to TOC
 \printbibliography
+
+
+
 \end{document}
+
+% \end{document}
+
 
 
 
