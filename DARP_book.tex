@@ -69,16 +69,38 @@
 
 \begin{document}
 
-\title{Data Analysis with R and Python (DARP) v0.1 \\ \large Including Colab Examples on GitHub and Sentiment Analysis}
-\author{}
-\date{}
-\maketitle
+% --- Book Cover ---
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Background color
+        \fill[cyan!30] (current page.south west) rectangle (current page.north east);
 
-\begin{center}
-    MIT License \\
-    Available on GitHub at: \\
-    \url{https://GitHub.com/nicholaskarlson/DARP}
-\end{center}
+        % Decorative Circles Pattern at the bottom
+        \foreach \i in {0,...,36}
+        {
+            \fill[cyan!40, rotate around={10*\i:(current page.center)}] 
+                (current page.south) circle (1cm);
+        }
+        
+        % Title and additional info
+        \node at (current page.center) [font=\Huge, text width=0.8\textwidth, align=center] 
+            {\textbf{Data Analysis with R and Python (DARP) v0.2 \\ \large Including Colab, GitHub, and Sentiment Analysis}};
+            
+        \node[align=center, font=\large] at (current page.center) 
+            [yshift=-2.5cm] {\today}; % <- This is the compilation date
+            
+        \node[align=center, font=\large] at (current page.center) 
+            [yshift=-3.5cm] {MIT License};
+        
+        \node[align=center, font=\large] at (current page.center) 
+            [yshift=-5cm] {Available on GitHub at: \\ 
+            \url{https://GitHub.com/nicholaskarlson/DARP}};
+    \end{tikzpicture}
+\end{titlepage}
+
+% --- Table of Contents ---
+% \tableofcontents
+% \cleardoublepage
 
 \tableofcontents
 
@@ -141,7 +163,137 @@ Data doesn't exist in a vacuum. The way it's collected and the context it stems 
 \chapter{Exploratory Data Analysis (EDA)}
 Embarking on the analytical journey requires a map, a preliminary understanding of the data terrain you're about to traverse. Exploratory Data Analysis, or EDA, is that map. This chapter sheds light on the initial steps of any data analysis endeavor, focusing on summarizing, visualizing, and understanding the data before more complex analytical methods are employed.
 
-\section{Descriptive Statistics}
+\section{Understanding Correlation with Python}
+Correlation is a statistical measure that expresses the extent to which two variables change together. Understanding correlation is crucial in data analysis for identifying relationships between variables. The following Python script demonstrates how to calculate and visualize correlation using the Pandas and Seaborn libraries.
+
+\begin{verbatim}
+# Python code for correlation analysis
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Sample data frame
+data = pd.DataFrame({
+    'Age': [25, 40, 30, 45, 35],
+    'Income': [50, 65, 55, 80, 60],
+    'Savings': [75, 60, 80, 70, 90]
+})
+
+# Calculating correlation
+correlation_matrix = data.corr()
+
+# Visualizing correlation
+plt.figure(figsize=(8, 6))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title('Correlation Matrix of Age, Income, and Savings')
+plt.show()
+\end{verbatim}
+
+This code calculates the correlation coefficients between Age, Income, and Savings, and then uses a heatmap to visualize these correlations. The color intensity and annotations in the heatmap provide an intuitive way to understand how each pair of variables is related, guiding further analysis and hypothesis testing in the field of data science.
+
+\subsection{EDA Techniques - Continued}
+Beyond basic charts and plots, data visualization encompasses a range of advanced techniques that can unearth deeper insights into your data. In this section, we'll focus on exploring for data outliers, as outliers can significantly impact your analysis and conclusions.
+
+\subsection{Identifying Outliers with Python}
+Outliers are data points that deviate significantly from the rest of the data. Identifying them is crucial as they can indicate variability in measurement, experimental errors, or a novel discovery.
+
+The following Python script demonstrates how to identify outliers using the Z-score method. Z-score is a statistical measurement that describes a data point's relation to the mean of a group of values, measured in terms of standard deviations from the mean.
+
+\begin{verbatim}
+# Python code for outlier detection
+import numpy as np
+from scipy import stats
+
+# Sample data
+ages = np.array([20, 22, 25, 30, 29, 33, 120, 25, 24, 22])
+
+# Calculate Z-scores
+z_scores = np.abs(stats.zscore(ages))
+
+# Define a threshold for identifying outliers
+threshold = 3
+
+# Identify outliers
+outliers = ages[z_scores > threshold]
+print(f"Outliers in the data: {outliers}")
+\end{verbatim}
+
+In this example, we calculate the Z-scores for each data point in a sample dataset representing ages. Any data point with a Z-score greater than the threshold (here, set to 3) is identified as an outlier. This method is effective for datasets that follow a normal distribution.
+
+\subsection{Visualizing Outliers with Boxplots}
+Boxplots are a standardized way of displaying the distribution of data based on a five-number summary: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. They are especially useful for highlighting outliers.
+
+Here, we use a Python script to create a boxplot, which visually identifies outliers in our dataset.
+
+\begin{verbatim}
+# Python code for creating a boxplot
+import matplotlib.pyplot as plt
+
+# Sample data
+data = [20, 22, 25, 30, 29, 33, 120, 25, 24, 22]
+
+# Create a boxplot
+plt.boxplot(data, vert=False)
+plt.title("Boxplot of Ages")
+plt.xlabel("Age")
+plt.show()
+\end{verbatim}
+
+In the boxplot, outliers are typically represented as individual points that are plotted beyond the whiskers of the boxplot. This visual method makes it easy to spot outliers at a glance.
+
+\subsection{Discussion on the Impact of Outliers}
+Understanding the nature and impact of outliers is crucial in data analysis. They can represent errors that need to be corrected, or they can hold significant information about the dataset. For instance, in financial analysis, outliers can indicate fraudulent activities, while in scientific experiments, they might suggest new phenomena or experimental errors.
+
+The decision to include or exclude outliers should be based on a thorough understanding of the data and its context, not just on statistical criteria. This involves considering the data source, the methodology used for data collection, and the specific objectives of the analysis.
+
+EDA techniques, such as outlier detection and analysis, are essential for a comprehensive understanding of your data. Identifying and interpreting outliers correctly can lead to more accurate and insightful data analysis, which is a critical skill in the field of data science. 
+
+\subsection{Running Python Code in Google Colab}
+
+Google Colab is a powerful and free online platform that allows you to write and execute Python code through the browser. It's an excellent tool for data analysis, machine learning, and education. This tutorial will guide you through the process of taking the Python code examples from our previous section and running them in a Google Colab notebook.
+
+\subsection{Creating a New Colab Notebook}
+To begin, you need to create a new Python notebook in Google Colab.
+
+\begin{enumerate}
+    \item Open your web browser and go to \href{https://colab.research.google.com/}{Google Colab}.
+    \item If you're not signed in, sign in with your Google account.
+    \item Click on `New Notebook` to create a new Colab notebook. A new tab will open with a blank notebook.
+    \item Rename the notebook to something descriptive, like `DataAnalysisTutorial`, by clicking on the title at the top.
+\end{enumerate}
+
+\subsection{Transferring Python Code into Colab}
+Now, let's transfer the Python code from our LaTeX document into the Colab notebook.
+
+\begin{enumerate}
+    \item Copy the Python code from the LaTeX document (available on GitHub (see the title page of this book for the link). For example, copy the code for outlier detection or boxplot creation.
+    \item In the Colab notebook, you'll see a code cell. Click on this cell.
+    \item Paste the copied Python code into the cell.
+    \item To add more code cells, click on the `+ Code` button in the top menu.
+\end{enumerate}
+
+\subsection{Running the Python Code}
+Executing the code in Google Colab is straightforward.
+
+\begin{enumerate}
+    \item Click on the cell containing your pasted Python code.
+    \item Press the `Run` button in the top left corner of the cell, or use the shortcut `Ctrl+Enter` (or `Command+Enter` on Mac).
+    \item The code will execute, and the output will be displayed below the cell.
+    \item If you have multiple cells, you can run them in sequence.
+\end{enumerate}
+
+\subsection{Saving and Sharing Your Notebook}
+After running your code, you may want to save or share your notebook.
+
+\begin{enumerate}
+    \item To save your notebook, click `File` in the menu, then `Save`. Your notebook will be saved to your Google Drive.
+    \item To share your notebook, click `File`, then `Share`. You can then enter the email addresses of those you want to share it with, or generate a shareable link.
+\end{enumerate}
+
+\subsection{Python on Colab Example - Summary}
+Google Colab is an invaluable tool for running and sharing Python code, especially for data analysis tasks. By following along, you should now be able to transfer Python code from a LaTeX document into a Colab notebook, run the code, and understand the results. This process will enhance your data analysis skills and provide a practical way to apply the theoretical knowledge gained from the LaTeX document.
+
+\section{Descriptive Statistics with Python}
 The heartbeat of any dataset lies in its central tendencies, variations, and distributions. This section introduces you to the world of descriptive statistics, where numbers tell tales of averages, spreads, and patterns, offering a summarized view of the data in your hands.
 
 \section{Data Graphing Basics}
