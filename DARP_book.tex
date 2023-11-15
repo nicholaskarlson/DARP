@@ -1,20 +1,16 @@
 \documentclass[a4paper,12pt]{book}
-% \documentclass{book}
 \usepackage[utf8]{inputenc}
-% \usepackage{hyperref}
 \usepackage{geometry}
-%\usepackage{biblatex}
-
 \usepackage[backend=biber, style=authoryear, natbib=true]{biblatex}
 \addbibresource{references.bib}
-\usepackage{graphicx} % For graphics
+\usepackage{graphicx} 
 \usepackage{float}
 \usepackage{comment}
 \usepackage{tikz}
-\usepackage{tkz-euclide} % Add this line to include the tkz-euclide package
+\usepackage{tkz-euclide} 
 \usetikzlibrary{calc}
 \usetikzlibrary{matrix}
-\usetikzlibrary{angles,quotes} % For drawing and labeling angles
+\usetikzlibrary{angles,quotes} 
 \usepackage{siunitx}
 \usepackage{amsmath}
 \usepackage{enumitem}
@@ -22,7 +18,6 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 
-% Define custom styles for holdot and soldot
 \tikzset{
     holdot/.style={color=black,only marks,mark=*},
     soldot/.style={color=black,fill=white,only marks,mark=*},
@@ -34,8 +29,6 @@
 \usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
 
 \newcommand{\inputtoc}[1]{\input{#1}}
-
-% \makeindex % Command to make the index
 
 \pgfmathdeclarefunction{csc}{1}{%
   \pgfmathparse{1/sin(#1)}%
@@ -99,8 +92,6 @@
 \end{titlepage}
 
 % --- Table of Contents ---
-% \tableofcontents
-% \cleardoublepage
 
 \tableofcontents
 
@@ -311,8 +302,115 @@ R, often considered the statistician's best friend, boasts a rich lineage of dat
 \chapter{Statistical Analysis}
 The crux of data analysis often lies in deciphering patterns, making predictions, and drawing conclusions based on evidence within the data. This is the realm of statistical analysis. This chapter delves into foundational statistical methods, each acting as a powerful tool to extract meaning from data. Whether you're testing a theory, identifying relationships, or categorizing data, understanding these techniques is paramount.
 
-\section{Hypothesis Testing}
-At the core of many scientific endeavors is a question—a hypothesis waiting to be validated or refuted. This section introduces you to the structured world of hypothesis testing, where data is used to make informed decisions about underlying population parameters, helping you discern signal from noise.
+\section{Probability Theory - The Foundation of Hypothesis Testing}
+Probability theory is the foundation of hypothesis testing. This section will discuss the basics of probability theory in a rigorous way, using standard mathematical notation to define key terms and concepts. We'll explore the concept of a Bernoulli random variable, derive its probability function, and then apply these concepts to a practical example for hypothesis testing.
+
+\subsection{Basic Concepts}
+This subsection introduces the foundational concepts of probability theory. Understanding these concepts is crucial for further exploration into more complex probabilistic models and hypothesis testing.
+
+\begin{definition}
+A \textit{probability space} is a mathematical construct that models a random experiment. It is defined as a triple $(\Omega, \mathcal{F}, P)$, where $\Omega$ is the sample space, $\mathcal{F}$ is a sigma-algebra of subsets of $\Omega$, and $P$ is a probability measure.
+\end{definition}
+
+\begin{definition}
+An \textit{event} is a subset of the sample space $\Omega$ and is said to occur if the outcome of the experiment is an element of the event.
+\end{definition}
+
+\begin{definition}
+A \textit{sigma-algebra} $\mathcal{F}$ on a set $\Omega$ is a collection of subsets of $\Omega$ that includes the empty set, is closed under complementation, and is closed under countable unions.
+\end{definition}
+
+\begin{definition}
+A \textit{probability measure} $P$ on a sigma-algebra $\mathcal{F}$ is a function that assigns a non-negative real number to each set in $\mathcal{F}$, such that $P(\Omega) = 1$ and $P$ is countably additive.
+\end{definition}
+
+\begin{theorem}
+If $A$ and $B$ are two events in a probability space $(\Omega, \mathcal{F}, P)$, then the probability of their intersection is given by $P(A \cap B) = P(A)P(B)$, provided that $A$ and $B$ are independent events.
+\end{theorem}
+
+\begin{example}
+Consider the experiment of flipping a fair coin twice. The sample space $\Omega$ is $\{\text{HH}, \text{HT}, \text{TH}, \text{TT}\}$, where H stands for heads and T for tails. The event $A$ of getting at least one head can be represented as $\{\text{HH}, \text{HT}, \text{TH}\}$. The probability of $A$ occurring in this experiment is $P(A) = \frac{3}{4}$.
+\end{example}
+
+\begin{exercise}
+Calculate the probability of getting exactly one head in the coin-flipping example above.
+\end{exercise}
+
+\begin{solution}
+The event of getting exactly one head is represented by $\{\text{HT}, \text{TH}\}$. Therefore, the probability is $P(\text{exactly one head}) = \frac{2}{4} = \frac{1}{2}$.
+\end{solution}
+
+\subsection{Bernoulli Random Variable}
+\begin{definition}
+A \textit{Bernoulli random variable} is a discrete random variable that takes the value 1 with probability $p$ and the value 0 with probability $1-p$, where $0 \leq p \leq 1$.
+\end{definition}
+
+\begin{theorem}
+The probability mass function (PMF) of a Bernoulli random variable $X$ is given by $f(x;p) = p^x(1-p)^{1-x}$ for $x \in \{0,1\}$.
+\end{theorem}
+
+\subsection{Example Dataset and Hypothesis Testing}
+\begin{example}
+Consider a dataset representing the outcomes of flipping a coin 100 times. Each flip is independent, and the coin lands heads with some unknown probability $p$. This scenario can be modeled using a Bernoulli random variable.
+\end{example}
+
+\begin{problem}
+Formulate a hypothesis test to determine if the coin is biased towards heads (i.e., test if $p > 0.5$) using the given dataset.
+\end{problem}
+
+\begin{solution}
+The null hypothesis ($H_0$) is that the coin is fair, so $p = 0.5$. The alternative hypothesis ($H_1$) is that the coin is biased towards heads, so $p > 0.5$. The test will involve calculating the sample proportion of heads and comparing it to 0.5 using an appropriate test statistic.
+\end{solution}
+
+This example of hypothesis testing using a Bernoulli random variable will be continued in the next section, where we'll delve into the specifics of conducting the test, calculating the test statistic, and making a decision based on the p-value or a confidence interval.
+
+\section{Hypothesis Testing - Introduction}
+At the core of many scientific endeavors is a question—a hypothesis waiting to be validated or refuted. This section introduces you to the structured world of hypothesis testing, where data is used to make informed decisions about underlying population parameters. 
+
+Probability theory is the foundation of hypothesis testing. For example, consider a Bernoulli random variable and probability function. Suppose an example dataset is available to test if data is consistent with a Bernoulli probability function's parameter being greater than 0.5. This is a hypothesis test example and this example will be continued below.
+
+\begin{definition}
+A \textit{Bernoulli random variable} is a discrete random variable that takes the value 1 with probability $p$ and the value 0 with probability $1-p$, where $0 \leq p \leq 1$.
+\end{definition}
+
+\begin{theorem}
+The probability function of a Bernoulli random variable $X$ is given by $P(X=x) = p^x(1-p)^{1-x}$ for $x \in \{0,1\}$.
+\end{theorem}
+
+\begin{example}[Bernoulli Distribution]
+Consider a dataset representing coin flips where `1` denotes heads and `0` denotes tails. If the coin is fair, then $p=0.5$. We can use this dataset to test the hypothesis that $p > 0.5$.
+\end{example}
+
+\begin{problem}
+Using a hypothetical dataset based on the above example, formulate a hypothesis test to determine if the coin is biased towards heads (i.e., $p > 0.5$).
+\end{problem}
+
+\begin{solution}
+Here, you would describe how to set up and perform the hypothesis test, possibly including the calculation of a p-value or confidence interval.
+\end{solution}
+
+\subsection{Hypothesis Testing - Introduction}
+At the core of many scientific endeavors is a question—a hypothesis waiting to be validated or refuted. This section introduces you to the structured world of hypothesis testing, where data is used to make informed decisions about underlying population parameters. The basics of probability theory will be discussed in a rigorous way and will use standard mathematical notation to define key terms and concepts. All of this will be demonstrated by applying these concepts to the Bernoulli random variable and probability function discussed earlier.
+
+\begin{method}[Hypothesis Testing Framework]
+The general framework for hypothesis testing involves:
+\begin{enumerate}
+    \item Formulating null and alternative hypotheses.
+    \item Determining a suitable test statistic.
+    \item Calculating the test statistic using sample data.
+    \item Deciding whether to reject the null hypothesis based on the test statistic and significance level.
+\end{enumerate}
+\end{method}
+
+\begin{discussion}
+In hypothesis testing, the choice of significance level (commonly denoted as $\alpha$) is crucial. It represents the probability of rejecting the null hypothesis when it is actually true, known as Type I error.
+\end{discussion}
+
+\begin{application}
+Apply the hypothesis testing framework to the Bernoulli distribution example from the previous section, choosing an appropriate level of significance.
+\end{application}
+
+% HERE
 
 \section{Correlation and Regression Analysis}
 Relationships are at the heart of understanding complex systems, and data is no exception. Here, we'll delve into how variables interact and influence one another, exploring both the strength and nature of these relationships. By the end, you'll be equipped to predict, understand, and visualize interactions within your data.
@@ -805,26 +903,15 @@ install.packages(c("ggplot2", "dplyr", ...))
 Now, you're all set to begin your data analysis journey with R on Google Colab.
 
 
-% --- Bibliography ---
-%\addcontentsline{toc}{chapter}{Bibliography}
-%\bibliographystyle{alpha}
-%\bibliography{references} % Assuming you have a references.bib file
-
-% --- Index ---
-% \addcontentsline{toc}{chapter}{Index}
-% \printindex
-
 
 \cleardoublepage % Ensure the correct page number in the TOC
 \phantomsection % Create a phantom section for the hyperlink
 \addcontentsline{toc}{chapter}{\bibname} % Add bibliography to TOC
 \printbibliography
 
-
-
 \end{document}
 
-% \end{document}
+
 
 
 
