@@ -17,6 +17,40 @@
 \usepackage{amssymb}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
+% NEXT
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Define colors for code listing
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Code listing style
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% NEXT
 
 \tikzset{
     holdot/.style={color=black,only marks,mark=*},
@@ -572,6 +606,134 @@ TensorFlow, developed by Google, stands as one of the premier libraries for deep
 
 \section{Deep Learning in Python using Keras}
 While TensorFlow is powerful, its complexity can be daunting. Enter Keras—a high-level neural networks API that runs on top of TensorFlow, simplifying and streamlining the process of building and training deep learning models. In this section, we'll explore how to harness the power of Keras, ensuring you can build, train, and evaluate models with ease.
+
+% NEXT
+
+\chapter{Introduction to TensorFlow and Keras}
+
+\section{Overview of TensorFlow}
+\begin{itemize}
+    \item Introduction to TensorFlow
+    \item Core concepts of TensorFlow
+    \item TensorFlow's computation graph
+    \item Basic TensorFlow operations
+\end{itemize}
+
+\section{Introduction to Keras}
+\begin{itemize}
+    \item What is Keras?
+    \item Keras vs TensorFlow: Understanding the Relationship
+    \item Key Features of Keras
+\end{itemize}
+
+\section{Setting Up the Environment}
+\begin{itemize}
+    \item Installing TensorFlow and Keras
+    \item Setting up Google Colab
+    \item Importing necessary libraries
+\end{itemize}
+
+\chapter{Diving into Deep Learning with TensorFlow and Keras}
+
+\section{Deep Learning Basics}
+\begin{itemize}
+    \item Understanding Neural Networks
+    \item Activation Functions
+    \item Loss Functions
+    \item Optimizers
+\end{itemize}
+
+\section{Building Your First Neural Network}
+\begin{itemize}
+    \item Sequential Model in Keras
+    \item Adding Layers to the Model
+    \item Compiling the Model
+    \item Model Training and Evaluation
+\end{itemize}
+
+\chapter{Hands-on Example: Binary Classification}
+
+\section{Project Overview}
+\begin{itemize}
+    \item Objective of the project
+    \item Understanding the dataset
+\end{itemize}
+
+\section{Data Preparation}
+\begin{itemize}
+    \item Loading the Dataset
+    \item Preprocessing Data
+    \item Splitting Data into Training and Test Sets
+\end{itemize}
+
+\section{Building the Binary Classification Model}
+\begin{itemize}
+    \item Model Architecture
+    \item Compilation
+    \item Training the Model
+\end{itemize}
+
+\section{Model Evaluation and Analysis}
+\begin{itemize}
+    \item Evaluating Model Performance
+    \item Understanding the Results
+    \item Improving the Model
+\end{itemize}
+
+\section{Python Code for the Example}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras import Sequential
+from tensorflow.keras.losses import MeanSquaredError, BinaryCrossentropy
+from tensorflow.keras.activations import sigmoid
+import logging
+logging.getLogger("tensorflow").setLevel(logging.ERROR)
+tf.autograph.set_verbosity(0)
+
+# Sample code to demonstrate loading a dataset, creating a model, and training
+# (The actual dataset and model will be based on the chapter's context)
+
+# Load a built-in dataset
+mnist = tf.keras.datasets.mnist
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+
+# Preprocess the data
+train_images = train_images / 255.0
+test_images = test_images / 255.0
+
+# Create a sequential model
+model = Sequential([
+    Input(shape=(28, 28)),
+    tf.keras.layers.Flatten(),
+    Dense(128, activation='relu'),
+    Dense(10, activation='softmax')
+])
+
+# Compile the model
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Train the model
+model.fit(train_images, train_labels, epochs=5)
+
+# Evaluate the model
+test_loss, test_acc = model.evaluate(test_images, test_labels)
+print(f'Test Accuracy: {test_acc}')
+\end{lstlisting}
+
+\chapter{Advanced Topics in TensorFlow and Keras}
+\begin{itemize}
+    \item Custom Layers and Models
+    \item Working with Large Datasets
+    \item Hyperparameter Tuning
+    \item Deployment of TensorFlow Models
+\end{itemize}
+
+% NEXT
 
 \chapter{Sentiment Analysis}
 The digital age has ushered in an explosion of textual data—reviews, tweets, comments, and more. Within these words lie sentiments, emotions, and opinions waiting to be understood. Sentiment analysis stands at the crossroads of machine learning and natural language processing, dedicated to extracting, understanding, and interpreting these sentiments. This chapter takes you on a journey through the intricacies of sentiment analysis, from its foundational concepts to advanced modeling techniques.
